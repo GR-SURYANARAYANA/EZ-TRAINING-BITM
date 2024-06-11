@@ -1,4 +1,4 @@
-# 7654
+# 7654 using recursion
 def sum_digit(n):
   if n==0:
     return 0
