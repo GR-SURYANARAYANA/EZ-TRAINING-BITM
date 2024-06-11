@@ -1,0 +1,9 @@
+IN python :
+
+compile time POlymorphism:
+constructor overloading and function overloading is not possible 
+Where as the Operator overloading is possible
+
+
+Runtime POlymorphism:
+Method Overriding : is possible in python
