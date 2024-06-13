@@ -18,8 +18,8 @@ Sample Output:
 13649 
 """
 import math
-def get_digit(n):
-  return int(math.log10(n) + 1)
+# def get_digit(n):
+#   return int(math.log10(n) + 1)
 
 n = int(input())
 
@@ -33,8 +33,10 @@ n = int(input())
 # #   digit -= 1
 # print(result)
 
-# while n != 0:
-
-
-
-
+sum = 0
+while n != 0:
+  result = n % 10
+  digit = (int(math.log10(sum)) + 1 if sum !=0 else 0)
+  sum = result * result * (10 ** digit) + sum
+  n//=10
+print(sum) 

@@ -17,4 +17,4 @@ for i in range(len(contestent)):
    if contestent[i] == max:
       collide.append(i+1)
       
-print("No collide {collide[0]} is the winner " if len(collide) == 1 else f"candidates who collided are {collide}")
+print(f"No collide {collide[0]} is the winner " if len(collide) == 1 else f"candidates who collided are {collide}")
