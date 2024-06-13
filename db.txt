@@ -1,0 +1,9 @@
+Name : 2
+Marks-Obtained Details 
+Subject 1 : 2
+Subject 2 : 2
+Subject 3 : 2
+Subject 4 : 2
+Subject 5 : 2
+percentage : 2.0
+grade : F
