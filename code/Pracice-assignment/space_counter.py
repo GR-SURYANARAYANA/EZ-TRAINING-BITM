@@ -8,7 +8,7 @@ Output :
 Return an integer value representing the count of the number of spaces in a given string S.
 Example:
 
-Input: Hello World Hey
+Input:Hello World Hey
 
 Output:
 2
