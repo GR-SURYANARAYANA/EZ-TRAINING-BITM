@@ -30,6 +30,7 @@ Submissions
 179,619
 """
 nums = [3,2,1,2,1,7]
+nums = [1,1,2,2,3,7]
 d = {}
 for i in nums:
   if i not in d:
@@ -48,3 +49,8 @@ for i in range(len(nums)):
     d[nums[i]] = 1
 print(moves)
 
+# nums.sort()
+# print(nums)
+# moves = 0
+# for i in range(len(nums)-1):
+# print(moves)

@@ -20,9 +20,9 @@ The amount of time left to solve the problems is 4*60-180=60 mins.
 5th Problem - 25 mins
 So he can solve only 4 problems as he is not left with 25 mins to complete 5th problem.
 """
-n = int(input())
+n= int(input())
 hrs = int(input())
-time_left = 4 * 60 - hrs
+time_left = n * 60
 problem_solve = time_left * 2 / 5
 for i in range(1,n+1):
   if problem_solve < i * (i+1):
