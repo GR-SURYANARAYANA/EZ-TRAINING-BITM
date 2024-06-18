@@ -49,81 +49,60 @@ class Queue:
 
 
 class Node:
-    def __init__(self, data, next=None):
+    def __init__(self,data = None,next = None) -> None:
+        self.__data,self.__next = data,next
+    def set_data(self,data):
         self.__data = data
+        return self
+    def set_next(self,next):
         self.__next = next
-
+        return self
+    
     def get_data(self):
         return self.__data
 
-    def set_data(self, data):
-        self.__data = data
+    def get_next(self):
+        return self.__next
+    
+    def __str__(self) -> str:
+        return f'data:{self.__data}'
 
-    def set_next(self, link):
-        self.__next = link
-        return self
-
-
-# 6 + 6
-class Linklist:
+class LinkList:
     def __init__(self):
         self.head = None
-        self.current = None
-        self.last = None
-        self.__len = 0
+        self.tail = None
+        self.len = 0
 
-    def add_last(self, data):
+    def insert_at_first(self,data = None):
         if self.head:
-            self.last, self.last.next = Node(data)
+            self.head = Node(data,self.head)
         else:
-            self.head = Node(data)
-        self.__len += 1
-
-    def add_first(self, data):
+            self.head = self.tail = Node(data)
+        self.len += 1
+    
+    def insert_at_end(self,data):
+        if self.tail:
+            self.tail.set_next(Node(data))
+            self.tail = self.tail.get_next()
+        else:
+            self.head = self.tail = Node(data)
+        self.len += 1
+    
+    
+    
+    def __str__(self):
         if self.head:
-            self.head = Node(data).set_next(self.head)
+            temp = self.head
+            a = []
+            while temp!=None:
+                a.append(temp.get_data())
+                temp = temp.get_next()
+            return f'{a}'
         else:
-            self.head = Node(data)
-        self.__len += 1
-
-    def delete_first(self):
-        if self.head:
-            self.current, self.head = self.head, self.head.next
-            temp = self.current.get_data
-            del self.current
-            self.__len -= 1
-            return temp
-        else:
-            self.head, self.__len = None, 0
-            return None
-
-    def delete_last(self):
-        if not self.head.next or self.head:
-            self.head, self.__len = None, 0
-            return None
-        else:
-            self.current = self.head
-            while self.current.next != self.last:
-                self.current = self.current.next
-            self.current.next = None
-            del self.current
-
-    def add_at(self,pos,data):
-        if pos > (self.__len -1):
-            return None
-        else:
-            self.current = self.head
-            while pos != 1:
-                pos, self.current = pos - 1, self.current.next
-            self.current.next = Node(data, self.current.next)
-            return data
-
-    def delete_at(self, pos, data):
-        if pos > (self.__len -1):
-            return None
-
+            return f'{None}'    
+    
     def __len__(self):
-        return self.__len
+        return self.len
 
 #play with numbers:
 
