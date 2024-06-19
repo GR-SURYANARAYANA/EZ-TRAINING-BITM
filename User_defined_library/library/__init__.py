@@ -64,6 +64,9 @@ class Node:
     def get_next(self):
         return self.__next
     
+    def __del__(self):
+        del self
+    
     def __str__(self) -> str:
         return f'data:{self.__data}'
 
@@ -87,6 +90,22 @@ class LinkList:
         else:
             self.head = self.tail = Node(data)
         self.len += 1
+
+    def delete_at_last(self):
+        if self.head:
+            temp = self.head
+            while temp.next != self.tail:
+                temp = temp.get_next()
+            self.tail,temp = temp,self.tail
+            del self.tail
+            self.len += 1
+        else:
+            return None
+    
+    def delete_at_first(self):
+        if self.head:
+            self.head,temp = self.head.next,self.head
+
     
     
     
@@ -167,7 +186,7 @@ def bubble_sort(ls,start = 0,end =None, reversed = False):
 def selection_sort(ls,start = 0,end = None,reversed = False):
     end = (end if end else len(ls))
     for i in range(start,end-1):
-        index = (min_index(ls,i+1) if not reversed else max_index(ls,i+1))
+        index = (min_index(ls,i) if not reversed else max_index(ls,i))
         ls[i], ls[index] = ls[index], ls[i]
 
 def insertion_sort(ls,start = 0, end =None,reversed = False):
