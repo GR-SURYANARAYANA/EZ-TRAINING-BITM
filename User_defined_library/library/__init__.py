@@ -39,7 +39,7 @@ class Queue:
         return self.item[0]
 
     def is_empty(self):
-        return True if self.item else False
+        return False if self.item else True
 
     def __str__(self):
         return f"{self.item}"
@@ -105,9 +105,9 @@ class LinkList:
     def delete_at_first(self):
         if self.head:
             self.head,temp = self.head.next,self.head
-
-    
-    
+            self.len -=1
+        else:
+            return 'Empty List'
     
     def __str__(self):
         if self.head:
@@ -122,7 +122,7 @@ class LinkList:
     
     def __len__(self):
         return self.len
-
+    
 #play with numbers:
 
 def min(ls,start=0,end=None):
@@ -157,13 +157,20 @@ def max(ls,start=0,end=None):
             max_value = ls[i]
     return max_value
 
-def merge(list1,list2):
+def merge(list1,list2,reversed = False):
     ls = []
-    while list1 and list2:
-        if list1 and list2[0] >= list1[0]:
-            ls.append(list1.pop(0))
-        else:
-            ls.append(list2.pop(0))
+    if reversed:
+        while list1 and list2:
+            if list1 and list2[0] <= list1[0]:
+                ls.append(list1.pop(0))
+            else:
+                ls.append(list2.pop(0))
+    else:
+        while list1 and list2:
+            if list1 and list2[0] >= list1[0]:
+                ls.append(list1.pop(0))
+            else:
+                ls.append(list2.pop(0))
     if list1:
         ls = ls + list1
     if list2:
@@ -233,12 +240,12 @@ def quick_sort(ls,start,end,reversed = False):
 #         ls[mid:high] = merge_sort(ls,mid+1,high)
 #         return merge(ls[low:mid],ls[mid:high])
      
-def merge_sort(ls, low, high):
+def merge_sort(ls, low, high,reversed):
     if low < high:
         mid = (low + high) // 2
-        left_half = merge_sort(ls, low, mid)
-        right_half = merge_sort(ls, mid + 1, high)
-        return merge(left_half, right_half)
+        left_half = merge_sort(ls, low, mid,reversed)
+        right_half = merge_sort(ls, mid + 1, high,reversed)
+        return merge(left_half, right_half,reversed)
     else:
         return ls[low:high + 1]
 
