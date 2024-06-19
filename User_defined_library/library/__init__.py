@@ -100,10 +100,11 @@ class LinkList:
             return 
         else:
             temp = self.head
-            while pos != 1 and temp:
+            while pos != 2 and temp:
                 temp = temp.get_next()
                 pos -= 1
             temp.set_next(Node(data,temp.get_next()))
+            self.len += 1
 
     def delete_at_last(self):
         if self.head:
@@ -115,6 +116,7 @@ class LinkList:
             self.len -= 1
         else:
             self.head = self.tail = None
+            self.len = 0
             return None
     
     def delete_at_first(self):
@@ -123,8 +125,26 @@ class LinkList:
             self.len -=1
         else:
             self.head = self.tail = None
+            self.len = 0
             return 'Empty List'
-        
+
+    # def delete_at_any_position(self,pos):
+    #     if pos == 1:
+    #         self.delete_at_first()
+    #     elif pos == len(self):
+    #         self.delete_at_last()
+    #     elif pos > len(self):
+    #         return None
+    #     else:
+    #         temp = self.head
+    #         while pos != 3 and temp:
+    #             temp = temp.get_next()
+    #             pos -= 1
+    #         curr = temp.next 
+    #         temp.set_next(curr.next)
+    #         curr.next =  
+    #         self.len += 1
+
     
     def __str__(self):
         if self.head:
