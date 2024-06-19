@@ -91,6 +91,20 @@ class LinkList:
             self.head = self.tail = Node(data)
         self.len += 1
 
+    def insert_at_any_postition(self,data,pos):
+        if pos == 1:
+            self.insert_at_first(data)
+        elif len(self) == pos:
+            self.insert_at_end(data)
+        elif len(self) < pos:
+            return 
+        else:
+            temp = self.head
+            while pos != 1 and temp:
+                temp = temp.get_next()
+                pos -= 1
+            temp.set_next(Node(data,temp.get_next()))
+
     def delete_at_last(self):
         if self.head:
             temp = self.head
@@ -98,8 +112,9 @@ class LinkList:
                 temp = temp.get_next()
             self.tail,temp = temp,self.tail
             del self.tail
-            self.len += 1
+            self.len -= 1
         else:
+            self.head = self.tail = None
             return None
     
     def delete_at_first(self):
@@ -107,7 +122,9 @@ class LinkList:
             self.head,temp = self.head.next,self.head
             self.len -=1
         else:
+            self.head = self.tail = None
             return 'Empty List'
+        
     
     def __str__(self):
         if self.head:
