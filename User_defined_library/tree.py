@@ -29,11 +29,15 @@ def inorder(root):
   preorder(root.right)
 
 queue = Queue()
-def breath_first_Search(root):
+def breath_first_Search(root,left_view = False,right_view = False):
+  l_view = []
+  r_view = []
+  bst = []
   if root:
     queue.push(root)
     queue.push(None)
     while queue.peek():
+      l_view.append(queue.peek().data)
       while queue.peek():
         temp = queue.pop()
         print(temp.data, end = " ")
@@ -41,9 +45,17 @@ def breath_first_Search(root):
           queue.push(temp.left)
         if temp.right:
           queue.push(temp.right)
+      r_view.append(temp.data)
       print()
       queue.push(None)
       queue.pop()
+  if right_view and left_view:
+    return f'{l_view},{r_view}'
+  elif right_view:
+    return f'{r_view}'
+  elif left_view:
+    return f'{l_view}'
+  
 
 def left_view(root):
   ls = []
@@ -64,24 +76,24 @@ def left_view(root):
       queue.pop()
   return ls
 
-def right_view(root):
-  ls = []
-  if root:
-    queue.push(root)
-    queue.push(None)
-    while queue.peek():
-      while queue.peek():
-        temp = queue.pop()
-        print(temp.data, end = " ")
-        if temp.left:
-          queue.push(temp.left)
-        if temp.right:
-          queue.push(temp.right)
-      ls.append(temp.data)
-      print()
-      queue.push(None)
-      queue.pop()
-  return ls
+# def right_view(root):
+#   ls = []
+#   if root:
+#     queue.push(root)
+#     queue.push(None)
+#     while queue.peek():
+#       while queue.peek():
+#         temp = queue.pop()
+#         print(temp.data, end = " ")
+#         if temp.left:
+#           queue.push(temp.left)
+#         if temp.right:
+#           queue.push(temp.right)
+#       ls.append(temp.data)
+#       print()
+#       queue.push(None)
+#       queue.pop()
+#   return ls
 
 
 d = {}
@@ -135,7 +147,7 @@ if __name__ == '__main__':
   root.left.right.left.right=Node(13)
   # breath_first_Search(root)
   # print(left_view(root))
-  print("Right view :",right_view(root))
+  print("left_view,Right view:",breath_first_Search(root,right_view=True,left_view=True))
   
   # print("Preorder")
   # preorder(root)
