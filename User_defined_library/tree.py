@@ -76,24 +76,47 @@ def left_view(root):
       queue.pop()
   return ls
 
-# def right_view(root):
-#   ls = []
-#   if root:
-#     queue.push(root)
-#     queue.push(None)
-#     while queue.peek():
-#       while queue.peek():
-#         temp = queue.pop()
-#         print(temp.data, end = " ")
-#         if temp.left:
-#           queue.push(temp.left)
-#         if temp.right:
-#           queue.push(temp.right)
-#       ls.append(temp.data)
-#       print()
-#       queue.push(None)
-#       queue.pop()
-#   return ls
+def zig_zag_view(root):
+  zig_zag_model = []
+  flag = True
+  if root:
+    queue.push(root)
+    queue.push(None)
+    while queue.peek():
+      ls = []
+      while queue.peek():
+        temp = queue.pop()
+        ls.append(temp.data)
+        print(temp.data, end = " ")
+        if temp.left:
+          queue.push(temp.left)
+        if temp.right:
+          queue.push(temp.right)
+      zig_zag_model.append((ls if flag else ls[::-1]))
+      flag = (False if flag else True)
+      print()
+      queue.push(None)
+      queue.pop()
+  return zig_zag_model
+
+def right_view(root):
+  ls = []
+  if root:
+    queue.push(root)
+    queue.push(None)
+    while queue.peek():
+      while queue.peek():
+        temp = queue.pop()
+        print(temp.data, end = " ")
+        if temp.left:
+          queue.push(temp.left)
+        if temp.right:
+          queue.push(temp.right)
+      ls.append(temp.data)
+      print()
+      queue.push(None)
+      queue.pop()
+  return ls
 
 
 d = {}
@@ -147,8 +170,8 @@ if __name__ == '__main__':
   root.left.right.left.right=Node(13)
   # breath_first_Search(root)
   # print(left_view(root))
-  print("left_view,Right view:",breath_first_Search(root,right_view=True,left_view=True))
-  
+  # print("left_view,Right view:",breath_first_Search(root,right_view=True,left_view=True))
+  print(zig_zag_view(root))
   # print("Preorder")
   # preorder(root)
   # print("Postorder")

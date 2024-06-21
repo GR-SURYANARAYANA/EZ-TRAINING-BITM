@@ -23,6 +23,9 @@ class Stack:
 
     def __len__(self):
         return len(self.__items)
+    
+    def __str__(self):
+        return f'{self.__items[::-1]}'
 
 
 class Queue:
@@ -160,8 +163,19 @@ class LinkList:
     
     def __len__(self):
         return self.len
-    
+
+#Searching
+def linear_search(ls,target,start = 0,end = None,reversed=False):
+    end = (end if end else len(ls))
+    if start <= end:
+        for i in (range(end-1,start-1,-1) if reversed else range(start,end)):
+            if target == ls[i]:
+                return i
+    return -1            
+
+
 #play with numbers:
+
 
 def min(ls,start=0,end=None):
     end = (end if end else len(ls))
@@ -269,15 +283,6 @@ def quick_sort(ls,start,end,reversed = False):
     quick_sort(ls,start,j-1,reversed)
     quick_sort(ls,j+1,end,reversed)
         
-            
-
-# def merge_sort(ls,low,high):
-#     if low < high:
-#         mid = (low + high)//2
-#         ls[low:mid] = merge_sort(ls,low,mid)
-#         ls[mid:high] = merge_sort(ls,mid+1,high)
-#         return merge(ls[low:mid],ls[mid:high])
-     
 def merge_sort(ls, low, high,reversed):
     if low < high:
         mid = (low + high) // 2
