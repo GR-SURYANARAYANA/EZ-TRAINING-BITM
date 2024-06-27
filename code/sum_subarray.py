@@ -2,13 +2,14 @@ import math
 
 ls = list(map(int,input().split(" ")))
 sub_sum = -1 * math.inf
-# for i in range(len(ls)):
-#   for j in range(i+1,len(ls)):
-#     a = ls[i:j+1]
-#     result = sum(a)
-#     if result > sub_sum:
-#       sub_sum = result
-# print(sub_sum)
+for i in range(len(ls)):
+  for j in range(i+1,len(ls)):
+    a = ls[i:j+1]
+    result = sum(a)
+    print(a)
+    if result > sub_sum:
+      sub_sum = result
+print(sub_sum)
 
 # total_sum = sum(ls)
 # max_sum = total_sum
