@@ -21,7 +21,7 @@ for i in d:
 cost = [float('inf')]*len(d)
 source = int(input(""))
 cost[source] = 0
-for i in range(len(d)):
+for i in range(len(d)-1):
   for i in pair_list:
     source = i[0]
     destination = i[1]
