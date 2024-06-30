@@ -1,21 +1,59 @@
-from pytube import Playlist
-from pytube import YouTube
+import hashlib
+import itertools
+import string
+import threading
+from queue import Queue
 
-# Specify the URL of the YouTube playlist you want to download
-playlist_url = 'https://www.youtube.com/playlist?list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb'
+def sha256_hash(text):
+    return hashlib.sha256(text.encode()).hexdigest()
 
-# Create a Playlist object
-playlist = Playlist(playlist_url)
+def dictionary_attack(hash_to_crack, dictionary):
+    for word in dictionary:
+        if sha256_hash(word) == hash_to_crack:
+            return word
+    return None
 
-# Specify the download location (optional)
-download_path = 'D:\MIT'
+def brute_force_attack(hash_to_crack, length, charset, result_queue):
+    for candidate in itertools.product(charset, repeat=length):
+        candidate = ''.join(candidate)
+        if sha256_hash(candidate) == hash_to_crack:
+            result_queue.put(candidate)
+            return
 
-# Download each video in the playlist
-for url in playlist.video_urls:
-    try:
-        yt = YouTube(url)
-        stream = yt.streams.get_highest_resolution()
-        stream.download(download_path)
-        print(f'Video {yt.title} downloaded successfully.')
-    except Exception as e:
-        print(f'An error occurred while downloading {url}: {e}')
+def worker(hash_to_crack, length, charset, result_queue):
+    brute_force_attack(hash_to_crack, length, charset, result_queue)
+
+def multi_thread_brute_force(hash_to_crack, max_length, charset):
+    result_queue = Queue()
+    threads = []
+
+    for length in range(1, max_length + 1):
+        for _ in range(4):  # Number of threads can be adjusted
+            thread = threading.Thread(target=worker, args=(hash_to_crack, length, charset, result_queue))
+            threads.append(thread)
+            thread.start()
+
+    for thread in threads:
+        thread.join()
+
+    return result_queue.get() if not result_queue.empty() else None
+
+# Example hash and dictionary
+hash_to_crack = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd9a7fa134c8639d3c4"  # Hash for "password"
+dictionary = ["123456", "password", "admin", "letmein", "1234"]
+charset = string.ascii_lowercase + string.digits  # Charset can be expanded as needed
+max_length = 5  # Maximum length for brute force
+
+# Try dictionary attack first
+original_message = dictionary_attack(hash_to_crack, dictionary)
+if original_message:
+    print(f"Original message found in dictionary: {original_message}")
+else:
+    print("Original message not found in dictionary. Starting brute-force attack...")
+    # Fall back to brute force attack
+    original_message = multi_thread_brute_force(hash_to_crack, max_length, charset)
+    if original_message:
+        print(f"Original message found by brute force: {original_message}")
+    else:
+        print("Original message not found by brute force within the given constraints.")
+
